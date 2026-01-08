@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <button class="lang-btn" data-lang="en" data-i18n="english">English</button>
+        <button class="lang-btn" data-lang="ja" data-i18n="japanese">日本語</button>
+    </div>
+
     <!-- Main video feed container -->
     <div class="reels-container" id="reelsContainer">
         <!-- Loading indicator -->
@@ -23,12 +29,12 @@
         <div class="auth-modal-overlay" id="authModalOverlay"></div>
         <div class="auth-modal-content">
             <button class="auth-modal-close" id="authModalClose">&times;</button>
-            <h2>Sign in to continue</h2>
-            <p class="auth-modal-message">Please log in or register to collect videos and save your favorites.</p>
+            <h2 data-i18n="signInTitle">Sign in to continue</h2>
+            <p class="auth-modal-message" data-i18n="signInMessage">Please log in or register to collect videos and save your favorites.</p>
 
             <div class="auth-modal-actions">
-                <button class="auth-btn auth-btn-primary" id="loginBtn">Log In</button>
-                <button class="auth-btn auth-btn-secondary" id="registerBtn">Register</button>
+                <button class="auth-btn auth-btn-primary" id="loginBtn" data-i18n="loginBtn">Log In</button>
+                <button class="auth-btn auth-btn-secondary" id="registerBtn" data-i18n="registerBtn">Register</button>
             </div>
 
             <!-- Django auth iframe container (hidden by default) -->
@@ -39,6 +45,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src="js/i18n.js"></script>
     <script src="js/config.js"></script>
     <script src="js/data.js"></script>
     <script src="js/analytics.js"></script>

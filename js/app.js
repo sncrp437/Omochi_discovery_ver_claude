@@ -26,7 +26,7 @@ async function init() {
 
         if (videos.length === 0) {
             console.error('No valid video data found');
-            loading.innerHTML = '<p>No videos available</p>';
+            loading.innerHTML = `<p>${t('noVideos')}</p>`;
             return;
         }
 
@@ -41,7 +41,7 @@ async function init() {
 
     } catch (error) {
         console.error('Initialization error:', error);
-        document.getElementById('loading').innerHTML = '<p>Error loading videos</p>';
+        document.getElementById('loading').innerHTML = `<p>${t('errorLoading')}</p>`;
     }
 }
 
@@ -123,16 +123,21 @@ function createOverlay(video) {
     const overlay = document.createElement('div');
     overlay.className = 'reel-overlay';
 
-    // Caption
+    // Caption - store both languages as data attributes
     const caption = document.createElement('p');
     caption.className = 'reel-caption';
-    caption.textContent = video.caption;
+    caption.dataset.captionEn = video.caption_en || '';
+    caption.dataset.captionJa = video.caption_ja || video.caption_en || '';
+
+    // Set initial caption based on current language
+    const currentLang = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'en';
+    caption.textContent = currentLang === 'ja' ? caption.dataset.captionJa : caption.dataset.captionEn;
 
     // Collect button (link to collect.html)
     const collectBtn = document.createElement('a');
     collectBtn.href = 'collect.html';
     collectBtn.className = 'collect-btn';
-    collectBtn.textContent = 'Collect';
+    collectBtn.textContent = t('collectBtn');
 
     // Log collect event when clicked (if analytics enabled)
     collectBtn.addEventListener('click', () => {

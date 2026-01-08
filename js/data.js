@@ -30,14 +30,15 @@ async function fetchVideoData() {
 }
 
 /**
- * Sample YouTube Shorts data for testing (Food/Venue focused)
+ * Sample YouTube Shorts data for testing (Food/Venue focused with multilingual captions)
  * This will be replaced by actual data from Google Sheets
  *
  * Expected data structure from Google Sheets:
  * {
  *   id: "video_001",
  *   url: "https://www.youtube.com/embed/VIDEO_ID",
- *   caption: "Caption text",
+ *   caption_en: "English caption text",
+ *   caption_ja: "Japanese caption text",
  *   venue_name: "Restaurant Name" (required),
  *   genre: "Cuisine type" (optional),
  *   address: "Physical location" (optional),
@@ -51,7 +52,8 @@ function getSampleData() {
         {
             id: 'sample_001',
             url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            caption: 'Best ramen in town! 🍜',
+            caption_en: 'Best ramen in town! 🍜',
+            caption_ja: 'この街で最高のラーメン！🍜',
             venue_name: 'Sample Ramen House',
             genre: 'Japanese',
             address: '123 Food St, Sample City',
@@ -61,7 +63,8 @@ function getSampleData() {
         {
             id: 'sample_002',
             url: 'https://www.youtube.com/embed/jNQXAC9IVRw',
-            caption: 'Amazing wood-fired pizza 🍕',
+            caption_en: 'Amazing wood-fired pizza 🍕',
+            caption_ja: '素晴らしい薪窯ピザ 🍕',
             venue_name: 'Sample Pizza Co',
             genre: 'Italian',
             address: '456 Main Ave, Sample City',
@@ -71,7 +74,8 @@ function getSampleData() {
         {
             id: 'sample_003',
             url: 'https://www.youtube.com/embed/9bZkp7q19f0',
-            caption: 'Fresh sushi daily 🍣',
+            caption_en: 'Fresh sushi daily 🍣',
+            caption_ja: '新鮮な寿司ロール 🍣',
             venue_name: 'Sample Sushi Bar',
             genre: 'Japanese',
             address: '789 Ocean Blvd, Sample City',
@@ -88,9 +92,9 @@ function getSampleData() {
  */
 function parseVideoData(rawData) {
     return rawData.filter(item => {
-        // Validate required fields (id, url, caption)
-        if (!item.url || !item.caption) {
-            console.warn('Invalid video data - missing url or caption:', item);
+        // Validate required fields (id, url, caption_en)
+        if (!item.url || !item.caption_en) {
+            console.warn('Invalid video data - missing url or caption_en:', item);
             return false;
         }
 
@@ -106,6 +110,12 @@ function parseVideoData(rawData) {
         if (!item.id) {
             item.id = 'video_' + Math.random().toString(36).substr(2, 9);
         }
+
+        // Ensure caption_ja exists (fallback to caption_en if not provided)
+        if (!item.caption_ja) {
+            item.caption_ja = item.caption_en;
+        }
+
         return item;
     });
 }

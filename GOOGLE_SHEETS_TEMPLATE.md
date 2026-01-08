@@ -10,28 +10,29 @@ Create a Google Sheet with the following columns in this exact order:
 |--------|---------------|---------|----------|------------------------------------------------------|--------------------------------------------|
 | A      | id            | Text    | Yes      | Unique identifier for the video                      | video_001                                  |
 | B      | url           | URL     | Yes      | YouTube Shorts embed URL (must be 9:16)              | https://www.youtube.com/embed/dQw4w9WgXcQ |
-| C      | caption       | Text    | Yes      | Caption text displayed on the video                  | Best pasta in town! 🍝                    |
-| D      | venue_name    | Text    | Yes      | Name of the restaurant/venue                         | Mario's Italian Kitchen                    |
-| E      | genre         | Text    | No       | Cuisine type or food category                        | Italian                                    |
-| F      | address       | Text    | No       | Physical location of the venue                       | 123 Main St, New York, NY                  |
-| G      | title         | Text    | No       | Internal title for your organization                 | Mario's Carbonara Special                  |
-| H      | tags          | Text    | No       | Comma-separated tags for categorization              | pasta,italian,downtown,trending            |
-| I      | priority      | Number  | No       | Priority weight 1-10 (higher = more likely to show)  | 8                                          |
-| J      | active        | Boolean | No       | TRUE to show, FALSE to hide (default: TRUE)          | TRUE                                       |
-| K      | created_date  | Date    | No       | When the video was added                             | 2024-01-15                                 |
-| L      | notes         | Text    | No       | Internal notes (not shown to users)                  | Need to update caption                     |
+| C      | caption_en    | Text    | Yes      | English caption text displayed on the video          | Best pasta in town! 🍝                    |
+| D      | caption_ja    | Text    | No       | Japanese caption text (fallback to English if empty) | この街で最高のパスタ！🍝                    |
+| E      | venue_name    | Text    | Yes      | Name of the restaurant/venue                         | Mario's Italian Kitchen                    |
+| F      | genre         | Text    | No       | Cuisine type or food category                        | Italian                                    |
+| G      | address       | Text    | No       | Physical location of the venue                       | 123 Main St, New York, NY                  |
+| H      | title         | Text    | No       | Internal title for your organization                 | Mario's Carbonara Special                  |
+| I      | tags          | Text    | No       | Comma-separated tags for categorization              | pasta,italian,downtown,trending            |
+| J      | priority      | Number  | No       | Priority weight 1-10 (higher = more likely to show)  | 8                                          |
+| K      | active        | Boolean | No       | TRUE to show, FALSE to hide (default: TRUE)          | TRUE                                       |
+| L      | created_date  | Date    | No       | When the video was added                             | 2024-01-15                                 |
+| M      | notes         | Text    | No       | Internal notes (not shown to users)                  | Need to update caption                     |
 
 ## Sample Data
 
 Here's sample data you can copy into your Google Sheet:
 
 ```
-id          url                                         caption                             venue_name              genre           address                         title                   tags                        priority  active  created_date  notes
-video_001   https://www.youtube.com/embed/XXXXX         Best ramen in the city! 🍜          Tanaka Ramen House      Japanese        456 East Ave, Brooklyn, NY      Tonkotsu Special        ramen,japanese,brooklyn     9         TRUE    2024-01-15    Featured venue
-video_002   https://www.youtube.com/embed/XXXXX         Amazing wood-fired pizza 🍕         Napoli Pizza Co         Italian         789 West St, Manhattan, NY      Margherita Pizza        pizza,italian,manhattan     8         TRUE    2024-01-15    Top rated
-video_003   https://www.youtube.com/embed/XXXXX         Fresh sushi rolls 🍣                Sakura Sushi Bar        Japanese        321 Main St, Queens, NY         Omakase Experience      sushi,japanese,queens       10        TRUE    2024-01-16    Must try
-video_004   https://www.youtube.com/embed/XXXXX         Authentic tacos 🌮                  El Patron Taqueria      Mexican         654 5th Ave, Bronx, NY          Street Tacos            tacos,mexican,bronx         7         TRUE    2024-01-16    Local favorite
-video_005   https://www.youtube.com/embed/XXXXX         Artisan coffee ☕                   Third Wave Coffee       Cafe            987 Park Pl, Manhattan, NY      Latte Art               coffee,cafe,manhattan       6         TRUE    2024-01-17    Instagram worthy
+id          url                                         caption_en                          caption_ja                          venue_name              genre           address                         title                   tags                        priority  active  created_date  notes
+video_001   https://www.youtube.com/embed/XXXXX         Best ramen in the city! 🍜          この街で最高のラーメン！🍜           Tanaka Ramen House      Japanese        456 East Ave, Brooklyn, NY      Tonkotsu Special        ramen,japanese,brooklyn     9         TRUE    2024-01-15    Featured venue
+video_002   https://www.youtube.com/embed/XXXXX         Amazing wood-fired pizza 🍕         素晴らしい薪窯ピザ 🍕              Napoli Pizza Co         Italian         789 West St, Manhattan, NY      Margherita Pizza        pizza,italian,manhattan     8         TRUE    2024-01-15    Top rated
+video_003   https://www.youtube.com/embed/XXXXX         Fresh sushi rolls 🍣                新鮮な寿司ロール 🍣                Sakura Sushi Bar        Japanese        321 Main St, Queens, NY         Omakase Experience      sushi,japanese,queens       10        TRUE    2024-01-16    Must try
+video_004   https://www.youtube.com/embed/XXXXX         Authentic tacos 🌮                  本格的なタコス 🌮                  El Patron Taqueria      Mexican         654 5th Ave, Bronx, NY          Street Tacos            tacos,mexican,bronx         7         TRUE    2024-01-16    Local favorite
+video_005   https://www.youtube.com/embed/XXXXX         Artisan coffee ☕                   職人のコーヒー ☕                  Third Wave Coffee       Cafe            987 Park Pl, Manhattan, NY      Latte Art               coffee,cafe,manhattan       6         TRUE    2024-01-17    Instagram worthy
 ```
 
 **Note:** Replace XXXXX with actual YouTube Shorts video IDs. Use food-related YouTube Shorts (9:16 vertical videos) for best results.
@@ -56,11 +57,19 @@ video_005   https://www.youtube.com/embed/XXXXX         Artisan coffee ☕      
   - Embed: `https://www.youtube.com/embed/dQw4w9WgXcQ` ✓
 - **IMPORTANT:** Only use YouTube Shorts (9:16 vertical videos) for best results
 
-**caption** - Display text
-- Shown to users below the video
+**caption_en** - English caption text
+- Shown to users when English is selected
 - Keep it concise and engaging (1-2 sentences)
 - Can include emojis for personality
 - Focus on the food/dish being showcased
+- **REQUIRED** - Always provide English caption
+
+**caption_ja** - Japanese caption text
+- Shown to users when Japanese is selected
+- Optional - If empty, English caption will be used as fallback
+- Translate the essence of the English caption
+- Maintain emojis for consistency
+- Use natural Japanese expressions
 
 **venue_name** - Restaurant/Venue name
 - Name of the restaurant, cafe, or food venue
@@ -121,10 +130,11 @@ video_005   https://www.youtube.com/embed/XXXXX         Artisan coffee ☕      
 ## Setup Instructions
 
 1. Create a new Google Sheet
-2. Add the column headers in the first row (id, url, caption, type, title, tags, priority, active, created_date, notes)
+2. Add the column headers in the first row (id, url, caption_en, caption_ja, venue_name, genre, address, title, tags, priority, active, created_date, notes)
 3. Add your video data starting from row 2
-4. Ensure at minimum the required fields (id, url, caption) are filled
-5. Set up the Apps Script (see README.md)
+4. Ensure at minimum the required fields (id, url, caption_en, venue_name) are filled
+5. Optionally fill caption_ja for Japanese language support
+6. Set up the Apps Script (see README.md)
 
 ## Tips
 

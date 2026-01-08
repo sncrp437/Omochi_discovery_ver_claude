@@ -54,8 +54,8 @@ function doGet(e) {
 
     // Filter active videos only
     let activeVideos = jsonData.filter(video => {
-      // Check if video has required fields
-      if (!video.url || !video.caption) return false;
+      // Check if video has required fields (caption_en is required)
+      if (!video.url || !video.caption_en) return false;
 
       // Check if active (default to true if not specified)
       const isActive = video.active === undefined ||
@@ -94,11 +94,12 @@ function doGet(e) {
 
     // Clean up data - only return fields needed by frontend
     // All videos are YouTube Shorts, no type detection needed
-    // Includes food venue information
+    // Includes food venue information and multilingual captions
     const cleanedData = sortedVideos.map(video => ({
       id: video.id || '',
       url: video.url,
-      caption: video.caption,
+      caption_en: video.caption_en,
+      caption_ja: video.caption_ja || video.caption_en, // Fallback to English if Japanese is empty
       venue_name: video.venue_name || '',
       genre: video.genre || '',
       address: video.address || '',

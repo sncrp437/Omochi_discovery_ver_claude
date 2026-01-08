@@ -15,6 +15,49 @@ body {
     height: 100%;
 }
 
+/* Language Selector */
+.language-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 999;
+    display: flex;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 6px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.lang-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.lang-btn.active {
+    background-color: #fff;
+    color: #000;
+    font-weight: 600;
+}
+
+.lang-btn.active:hover {
+    background-color: #f0f0f0;
+}
+
 /* Reels Container - Vertical scroll with snap */
 .reels-container {
     width: 100%;
@@ -249,6 +292,18 @@ body {
 
 /* Mobile optimization */
 @media (max-width: 767px) {
+    .language-selector {
+        top: 12px;
+        right: 12px;
+        padding: 4px;
+        gap: 6px;
+    }
+
+    .lang-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
     .reel-caption {
         font-size: 13px;
         max-width: 85%;

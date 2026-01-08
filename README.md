@@ -7,6 +7,7 @@ A lightweight, Instagram Reels-style food discovery platform built with vanilla 
 - Instagram Reels-style vertical scrolling with snap behavior
 - **9:16 aspect ratio** - Perfect for YouTube Shorts (vertical food videos)
 - **Food venue focused** - Includes restaurant name, cuisine type, and address
+- **Multi-language support** - Switch between English and Japanese
 - Mobile-first responsive design
 - Autoplay videos on scroll using Intersection Observer
 - **YouTube Shorts only** - Optimized for vertical video content
@@ -28,10 +29,12 @@ insta_reelstyle_htmlfile/
 │   └── styles.css              # All styles
 ├── js/
 │   ├── app.js                  # Main application logic
-│   └── data.js                 # Google Sheets data fetching
+│   ├── data.js                 # Google Sheets data fetching
+│   └── i18n.js                 # Internationalization (language switching)
 ├── assets/                     # Images, icons, etc.
 ├── APPS_SCRIPT.js              # Google Apps Script code (copy to Google)
 ├── GOOGLE_SHEETS_TEMPLATE.md   # Detailed sheet structure guide
+├── MULTILINGUAL_SETUP.md       # Language switching setup guide
 ├── README.md                   # This file (setup instructions)
 └── claude.md                   # Project documentation
 ```
@@ -178,23 +181,71 @@ git push origin main
 - Use the X embed URL from the platform's embed feature
 - Example: Check X's embed options for your video
 
+## Language Support
+
+The app supports **English** and **Japanese** with a simple toggle button in the top-right corner.
+
+### How It Works
+- Language preference is saved in browser's `localStorage`
+- Persists across page reloads and navigation
+- All UI text and video captions automatically update when switching languages
+- Default language: English
+- Video captions are stored in Google Sheets with separate columns for each language
+
+**📖 See [MULTILINGUAL_SETUP.md](MULTILINGUAL_SETUP.md) for complete multilingual setup instructions.**
+
+### Adding More Languages
+
+To add additional languages, edit [js/i18n.js](js/i18n.js):
+
+1. Add a new language object in the `translations` object:
+```javascript
+const translations = {
+    en: { /* English translations */ },
+    ja: { /* Japanese translations */ },
+    es: { // Add Spanish
+        loading: 'Cargando...',
+        collectBtn: 'Coleccionar',
+        // ... other translations
+    }
+};
+```
+
+2. Add language button in HTML files:
+```html
+<button class="lang-btn" data-lang="es" data-i18n="spanish">Español</button>
+```
+
+### Translatable Elements
+To make new text translatable, add the `data-i18n` attribute:
+```html
+<p data-i18n="yourKey">Default text</p>
+```
+
+Then add translations in `i18n.js`:
+```javascript
+en: { yourKey: 'English text' },
+ja: { yourKey: '日本語テキスト' }
+```
+
 ## Customization
 
 ### Styling
-Edit `css/styles.css` to customize:
+Edit [css/styles.css](css/styles.css) to customize:
 - Colors and themes
 - Button styles
 - Layout and spacing
 - Mobile breakpoints
+- Language selector appearance
 
 ### Collect Page
-Edit `collect.html` to customize:
+Edit [collect.html](collect.html) to customize:
 - Success message
 - Call-to-action buttons
 - Additional functionality
 
 ### Sample Data
-If you want to test without Google Sheets, the `getSampleData()` function in `js/data.js` provides sample videos.
+If you want to test without Google Sheets, the `getSampleData()` function in [js/data.js](js/data.js) provides sample videos.
 
 ## Browser Support
 
