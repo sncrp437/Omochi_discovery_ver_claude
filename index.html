@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Instagram Reels style video player">
+    <title>Reels Style Player</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Main video feed container -->
+    <div class="reels-container" id="reelsContainer">
+        <!-- Loading indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Video items will be dynamically inserted here -->
+    </div>
+
+    <!-- Authentication Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-overlay" id="authModalOverlay"></div>
+        <div class="auth-modal-content">
+            <button class="auth-modal-close" id="authModalClose">&times;</button>
+            <h2>Sign in to continue</h2>
+            <p class="auth-modal-message">Please log in or register to collect videos and save your favorites.</p>
+
+            <div class="auth-modal-actions">
+                <button class="auth-btn auth-btn-primary" id="loginBtn">Log In</button>
+                <button class="auth-btn auth-btn-secondary" id="registerBtn">Register</button>
+            </div>
+
+            <!-- Django auth iframe container (hidden by default) -->
+            <div class="auth-iframe-container" id="authIframeContainer">
+                <iframe id="authIframe" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
