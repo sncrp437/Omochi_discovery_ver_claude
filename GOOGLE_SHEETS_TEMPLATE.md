@@ -21,6 +21,7 @@ Create a Google Sheet with the following columns in this exact order:
 | K      | active        | Boolean | No       | TRUE to show, FALSE to hide (default: TRUE)          | TRUE                                       |
 | L      | created_date  | Date    | No       | When the video was added                             | 2024-01-15                                 |
 | M      | notes         | Text    | No       | Internal notes (not shown to users)                  | Need to update caption                     |
+| N      | collection    | Text    | No       | Comma-separated collection IDs for filtering         | tokyo-ramen,trending                       |
 
 ## Sample Data
 

@@ -22,6 +22,8 @@ async function init() {
 
         // Fetch video data
         const rawData = await fetchVideoData();
+
+        // Parse videos
         videos = parseVideoData(rawData);
 
         if (videos.length === 0) {
@@ -30,14 +32,28 @@ async function init() {
             return;
         }
 
-        // Render video feed
-        renderVideoFeed();
+        // Initialize collections (if available)
+        let filteredVideos = videos;
+        if (rawData.collections && typeof initCollections === 'function') {
+            filteredVideos = await initCollections(videos, rawData.collections);
+        }
+
+        // Render video feed with filtered videos
+        renderVideoFeed(filteredVideos);
 
         // Hide loading indicator
         loading.classList.add('hidden');
 
         // Set up intersection observer for autoplay
         setupIntersectionObserver();
+
+        // Show welcome modal (if enabled)
+        if (typeof showWelcomeModal === 'function') {
+            const collectionName = typeof getCurrentCollectionName === 'function'
+                ? getCurrentCollectionName()
+                : (typeof t === 'function' ? t('allVideos') : 'All Videos');
+            showWelcomeModal(collectionName);
+        }
 
     } catch (error) {
         console.error('Initialization error:', error);
@@ -46,19 +62,29 @@ async function init() {
 }
 
 /**
- * Renders the video feed with all videos
+ * Renders the video feed with videos
+ * @param {Array} videosToRender - Array of videos to render (defaults to all videos)
  */
-function renderVideoFeed() {
+function renderVideoFeed(videosToRender) {
     const container = document.getElementById('reelsContainer');
     const loading = document.getElementById('loading');
 
-    videos.forEach((video, index) => {
+    const videosArray = videosToRender || videos;
+
+    if (videosArray.length === 0) {
+        container.innerHTML = '<div class="empty-collection"><p>No videos available</p></div>';
+        return;
+    }
+
+    videosArray.forEach((video, index) => {
         const reelItem = createReelItem(video, index);
         container.appendChild(reelItem);
     });
 
     // Keep loading indicator in DOM but hidden
-    container.appendChild(loading);
+    if (loading && loading.parentNode !== container) {
+        container.appendChild(loading);
+    }
 }
 
 /**

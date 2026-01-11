@@ -10,7 +10,7 @@ const GOOGLE_SHEETS_API_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
 
 /**
  * Fetches video data from Google Sheets via Apps Script
- * @returns {Promise<Array>} Array of video objects
+ * @returns {Promise<Object>} Object with videos and collections arrays
  */
 async function fetchVideoData() {
     try {
@@ -21,6 +21,9 @@ async function fetchVideoData() {
         }
 
         const data = await response.json();
+
+        // Handle new response format: { videos: [...], collections: [...] }
+        // Or fallback to old format (array of videos)
         return data;
     } catch (error) {
         console.error('Error fetching video data:', error);
@@ -48,50 +51,92 @@ async function fetchVideoData() {
  * }
  */
 function getSampleData() {
-    return [
-        {
-            id: 'sample_001',
-            url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-            caption_en: 'Best ramen in town! 🍜',
-            caption_ja: 'この街で最高のラーメン！🍜',
-            venue_name: 'Sample Ramen House',
-            genre: 'Japanese',
-            address: '123 Food St, Sample City',
-            tags: 'ramen,japanese,noodles',
-            priority: 5
-        },
-        {
-            id: 'sample_002',
-            url: 'https://www.youtube.com/embed/jNQXAC9IVRw',
-            caption_en: 'Amazing wood-fired pizza 🍕',
-            caption_ja: '素晴らしい薪窯ピザ 🍕',
-            venue_name: 'Sample Pizza Co',
-            genre: 'Italian',
-            address: '456 Main Ave, Sample City',
-            tags: 'pizza,italian,woodfired',
-            priority: 5
-        },
-        {
-            id: 'sample_003',
-            url: 'https://www.youtube.com/embed/9bZkp7q19f0',
-            caption_en: 'Fresh sushi daily 🍣',
-            caption_ja: '新鮮な寿司ロール 🍣',
-            venue_name: 'Sample Sushi Bar',
-            genre: 'Japanese',
-            address: '789 Ocean Blvd, Sample City',
-            tags: 'sushi,japanese,fresh',
-            priority: 5
-        }
-    ];
+    return {
+        videos: [
+            {
+                id: 'sample_001',
+                url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                caption_en: 'Best ramen in town! 🍜',
+                caption_ja: 'この街で最高のラーメン！🍜',
+                venue_name: 'Sample Ramen House',
+                genre: 'Japanese',
+                address: '123 Food St, Sample City',
+                tags: 'ramen,japanese,noodles',
+                collection: 'tokyo-ramen,trending',
+                priority: 5
+            },
+            {
+                id: 'sample_002',
+                url: 'https://www.youtube.com/embed/jNQXAC9IVRw',
+                caption_en: 'Amazing wood-fired pizza 🍕',
+                caption_ja: '素晴らしい薪窯ピザ 🍕',
+                venue_name: 'Sample Pizza Co',
+                genre: 'Italian',
+                address: '456 Main Ave, Sample City',
+                tags: 'pizza,italian,woodfired',
+                collection: 'best-pizza',
+                priority: 5
+            },
+            {
+                id: 'sample_003',
+                url: 'https://www.youtube.com/embed/9bZkp7q19f0',
+                caption_en: 'Fresh sushi daily 🍣',
+                caption_ja: '新鮮な寿司ロール 🍣',
+                venue_name: 'Sample Sushi Bar',
+                genre: 'Japanese',
+                address: '789 Ocean Blvd, Sample City',
+                tags: 'sushi,japanese,fresh',
+                collection: 'trending',
+                priority: 5
+            }
+        ],
+        collections: [
+            {
+                collection_id: 'all',
+                name_en: 'All Videos',
+                name_ja: 'すべての動画',
+                icon: '🎬',
+                display_order: 0,
+                active: true
+            },
+            {
+                collection_id: 'tokyo-ramen',
+                name_en: 'Tokyo Ramen',
+                name_ja: '東京ラーメン',
+                icon: '🍜',
+                display_order: 1,
+                active: true
+            },
+            {
+                collection_id: 'best-pizza',
+                name_en: 'Best Pizza',
+                name_ja: '最高のピザ',
+                icon: '🍕',
+                display_order: 2,
+                active: true
+            },
+            {
+                collection_id: 'trending',
+                name_en: 'Trending Now',
+                name_ja: 'トレンド',
+                icon: '🔥',
+                display_order: 3,
+                active: true
+            }
+        ]
+    };
 }
 
 /**
  * Parses and validates YouTube Shorts data
- * @param {Array} rawData - Raw data from Google Sheets
+ * @param {Object|Array} rawData - Raw data from Google Sheets (new format: {videos, collections} or old format: array)
  * @returns {Array} Validated video data
  */
 function parseVideoData(rawData) {
-    return rawData.filter(item => {
+    // Handle both new format {videos: [], collections: []} and old format (array)
+    const videosArray = rawData.videos || rawData;
+
+    return videosArray.filter(item => {
         // Validate required fields (id, url, caption_en)
         if (!item.url || !item.caption_en) {
             console.warn('Invalid video data - missing url or caption_en:', item);

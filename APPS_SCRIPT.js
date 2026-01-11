@@ -103,10 +103,35 @@ function doGet(e) {
       venue_name: video.venue_name || '',
       genre: video.genre || '',
       address: video.address || '',
-      tags: video.tags || ''
+      tags: video.tags || '',
+      collection: video.collection || '' // Collection tags for filtering
     }));
 
-    return ContentService.createTextOutput(JSON.stringify(cleanedData))
+    // Fetch Collections metadata sheet (if it exists)
+    const collectionsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Collections');
+    const parsedCollections = [];
+
+    if (collectionsSheet) {
+      const collectionsData = collectionsSheet.getDataRange().getValues();
+      const collectionsHeaders = collectionsData[0];
+
+      // Parse collections
+      for (let i = 1; i < collectionsData.length; i++) {
+        const row = {};
+        for (let j = 0; j < collectionsHeaders.length; j++) {
+          row[collectionsHeaders[j]] = collectionsData[i][j];
+        }
+        parsedCollections.push(row);
+      }
+    }
+
+    // Return combined response with videos and collections
+    const response = {
+      videos: cleanedData,
+      collections: parsedCollections
+    };
+
+    return ContentService.createTextOutput(JSON.stringify(response))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {

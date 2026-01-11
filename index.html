@@ -8,10 +8,18 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Info Button -->
+    <button class="info-btn" id="infoBtn" aria-label="Information">ℹ️</button>
+
     <!-- Language Selector -->
     <div class="language-selector">
         <button class="lang-btn" data-lang="en" data-i18n="english">English</button>
         <button class="lang-btn" data-lang="ja" data-i18n="japanese">日本語</button>
+    </div>
+
+    <!-- Collection Selector -->
+    <div class="collection-selector" id="collectionSelector">
+        <!-- Collection pills will be dynamically inserted here -->
     </div>
 
     <!-- Main video feed container -->
@@ -44,12 +52,47 @@
         </div>
     </div>
 
+    <!-- Welcome Modal -->
+    <div class="auth-modal" id="welcomeModal">
+        <div class="auth-modal-overlay" id="welcomeModalOverlay"></div>
+        <div class="auth-modal-content welcome-modal-content">
+            <button class="auth-modal-close" id="welcomeModalClose">&times;</button>
+
+            <div class="welcome-icon">🍜</div>
+            <h2 data-i18n="welcomeTitle">Welcome to Food Discovery</h2>
+
+            <div class="welcome-section">
+                <h3 data-i18n="welcomeAboutTitle">About</h3>
+                <p data-i18n="welcomeAboutText">Discover amazing restaurants and food venues through vertical video stories.</p>
+            </div>
+
+            <div class="welcome-section">
+                <h3 data-i18n="welcomeHowToTitle">How to Use</h3>
+                <ul class="welcome-list">
+                    <li data-i18n="welcomeSwipe">Swipe up/down to browse videos</li>
+                    <li data-i18n="welcomeCollect">Tap "Collect" to save favorites</li>
+                    <li data-i18n="welcomeCollections">Select collections at the top to filter</li>
+                    <li data-i18n="welcomeLanguage">Switch languages in the top right</li>
+                </ul>
+            </div>
+
+            <div class="welcome-section">
+                <p class="welcome-current-collection">
+                    <span data-i18n="welcomeNowShowing">Now showing:</span>
+                    <strong id="welcomeCollectionName">All Videos</strong>
+                </p>
+            </div>
+
+            <button class="auth-btn auth-btn-primary" id="welcomeGetStarted" data-i18n="welcomeGetStarted">Get Started</button>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="js/i18n.js"></script>
-    <script src="js/config.js"></script>
     <script src="js/data.js"></script>
+    <script src="js/collections.js"></script>
+    <script src="js/welcome.js"></script>
     <script src="js/analytics.js"></script>
-    <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

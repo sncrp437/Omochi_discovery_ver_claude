@@ -23,6 +23,22 @@ const translations = {
         collectedMessage: 'Your item has been successfully added to your collection.',
         continueBrowsing: 'Continue Browsing',
 
+        // Collections
+        allVideos: 'All Videos',
+        noVideosInCollection: 'No videos in this collection',
+
+        // Welcome Modal
+        welcomeTitle: 'Welcome to Food Discovery',
+        welcomeAboutTitle: 'About',
+        welcomeAboutText: 'Discover amazing restaurants and food venues through vertical video stories.',
+        welcomeHowToTitle: 'How to Use',
+        welcomeSwipe: 'Swipe up/down to browse videos',
+        welcomeCollect: 'Tap "Collect" to save favorites',
+        welcomeCollections: 'Select collections at the top to filter',
+        welcomeLanguage: 'Switch languages in the top right',
+        welcomeNowShowing: 'Now showing:',
+        welcomeGetStarted: 'Get Started',
+
         // Language selector
         language: 'Language',
         english: 'English',
@@ -45,6 +61,22 @@ const translations = {
         collectedTitle: 'アイテムを追加しました！',
         collectedMessage: 'アイテムがコレクションに正常に追加されました。',
         continueBrowsing: '続けて見る',
+
+        // Collections
+        allVideos: 'すべての動画',
+        noVideosInCollection: 'このコレクションには動画がありません',
+
+        // Welcome Modal
+        welcomeTitle: 'フードディスカバリーへようこそ',
+        welcomeAboutTitle: 'について',
+        welcomeAboutText: '縦型動画で素晴らしいレストランや飲食店を発見しましょう。',
+        welcomeHowToTitle: '使い方',
+        welcomeSwipe: '上下にスワイプして動画を閲覧',
+        welcomeCollect: '「コレクション」をタップしてお気に入りを保存',
+        welcomeCollections: '上部でコレクションを選択してフィルタリング',
+        welcomeLanguage: '右上で言語を切り替え',
+        welcomeNowShowing: '現在表示中:',
+        welcomeGetStarted: '始める',
 
         // Language selector
         language: '言語',
@@ -83,6 +115,11 @@ function setLanguage(lang) {
 
     // Update all elements with data-i18n attribute
     updateTranslations();
+
+    // Update collection pill names (if collections exist)
+    if (typeof updateCollectionNames === 'function') {
+        updateCollectionNames();
+    }
 
     // Update language selector state
     updateLanguageSelector();
