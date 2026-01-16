@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the venue you're at - NFC Experience">
+    <title>Discover Venue - Omochi</title>
+    <link rel="stylesheet" href="css/nfc-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body>
+    <!-- Language Toggle - Top Right Corner -->
+    <div class="language-toggle" id="languageToggle">
+        <button class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-divider">|</span>
+        <button class="lang-btn active" data-lang="ja">日本語</button>
+    </div>
+
+    <!-- Omochi Save to Home Screen Modal -->
+    <div class="omochi-modal" id="omochiModal">
+        <div class="omochi-modal-overlay" id="omochiModalOverlay"></div>
+        <div class="omochi-modal-content">
+            <button class="omochi-modal-close" id="omochiModalClose">&times;</button>
+
+            <h2 id="omochiModalTitle">Save Omochi to Home Screen</h2>
+            <p id="omochiModalMessage">Save to home screen to access Omochi anytime!</p>
+
+            <div class="platform-instructions">
+                <!-- iOS Instructions -->
+                <div class="instruction-ios" id="instructionIOS">
+                    <p><strong id="omochiIOSStep1">1. Tap the Share icon</strong> <span class="ios-share-icon">⎋</span></p>
+                    <p><strong id="omochiIOSStep2">2. Scroll down and tap "Add to Home Screen"</strong></p>
+                </div>
+
+                <!-- Android Instructions -->
+                <div class="instruction-android" id="instructionAndroid">
+                    <p><strong id="omochiAndroidStep1">1. Tap the Menu icon</strong> <span class="android-menu-icon">⋮</span></p>
+                    <p><strong id="omochiAndroidStep2">2. Tap "Add to Home screen"</strong></p>
+                </div>
+            </div>
+
+            <!-- Organization Note (addresses clutter fear) -->
+            <div class="organization-note" id="organizationNote">
+                <p id="omochiOrganizationNote">📱 One link, all your venues — Save this once and access all collected places from inside the app. No clutter, just tap to explore!</p>
+            </div>
+
+            <!-- Registration Note (reduces friction) -->
+            <div class="registration-note" id="registrationNote">
+                <p id="omochiRegistrationNote">💡 Register when you're ready — open from your home screen, tap ← Back, and sign up. All venues automatically saved to your account!</p>
+            </div>
+
+            <button class="omochi-continue-btn" id="omochiContinueBtn">Continue to Omochi</button>
+        </div>
+    </div>
+
+    <!-- Landing Screen (initial state) -->
+    <div id="landingScreen" class="screen active">
+        <div class="nfc-branding">
+            <img src="assets/nfc-icon.svg" alt="Discover" class="nfc-logo">
+            <h1>Discover the venue you're at</h1>
+            <p class="tagline">Tap. Discover. Collect.</p>
+        </div>
+
+        <div class="how-it-works">
+            <h2>How it works</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <p>Allow location access</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <p>We'll find the venue you're at</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <p>Collect it to your Omochi</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="why-omochi">
+            <h3>Why collect to Omochi?</h3>
+            <p>Build your personal collection of places that matter.
+               Return to favorites, discover new venues, and never forget
+               a great meal.</p>
+        </div>
+
+        <button id="findVenueBtn" class="cta-button">
+            Find Venue Near Me
+        </button>
+    </div>
+
+    <!-- Loading Screen (GPS detection in progress) -->
+    <div id="loadingScreen" class="screen">
+        <div class="loading-spinner"></div>
+        <p>Finding venue near you...</p>
+    </div>
+
+    <!-- Venue Display Screen (GPS success) -->
+    <div id="venueScreen" class="screen">
+        <!-- Single venue will be dynamically injected here -->
+    </div>
+
+    <!-- QR Scanner Screen (GPS fallback) - DOM created dynamically -->
+    <div id="qrScannerScreen" class="screen"></div>
+
+    <!-- No Venue Screen (GPS failed - no venue within 100m) -->
+    <div id="noVenueScreen" class="screen">
+        <h2>No venue nearby</h2>
+        <p>We couldn't find a partnered venue within 100m of your location.</p>
+        <button id="tryQRBtn">Scan QR Code Instead</button>
+        <button id="backBtn">Go Back</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/i18n.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/nfc-router.js"></script>
+</body>
+</html>
+
