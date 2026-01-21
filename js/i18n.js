@@ -127,13 +127,13 @@ const translations = {
     // nfc.html - Omochi Modal
     omochiModal: {
       title: "このお店を集める",
-      message: "あと少しで完了！Omochiを開いたら、ホーム画面に追加してください。集めたお店がいつでもすぐ見れるようになります。",
+      message: "あと少しで完了！Omochiを開いたら、ホーム画面に追加してください。集めたお店がいつでもすぐ見返せるようになります。",
       iosStep1: "1. 共有アイコンをタップ",
       iosStep2: "2. 下にスクロールして「ホーム画面に追加」をタップ",
       androidStep1: "1. メニューアイコンをタップ",
       androidStep2: "2. 「ホーム画面に追加」をタップ",
       organizationNote: "保存出来たら、ホーム画面からOmochiを開いて20秒で無料登録完了",
-      registrationNote: "これで終わり！次からはOmochiを使って、街やSNSで見つけたいいお店を自分だけのコレクションに集めましょう",
+      registrationNote: "これで終わり！次に気になるお店を見つけたら、Omochiで集めてみてください。",
       continueBtn: "Omochiで開く"
     },
 
