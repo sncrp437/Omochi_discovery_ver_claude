@@ -1,3 +1,7 @@
 .history/
 .DS_Store
 *.log
+
+# Private analytics files (never push to GitHub)
+ANALYTICS_SETUP_PRIVATE.md
+analytics-dashboard.html

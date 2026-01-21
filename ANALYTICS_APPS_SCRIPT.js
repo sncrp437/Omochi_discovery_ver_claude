@@ -77,16 +77,119 @@ function doPost(e) {
 }
 
 /**
+ * Secret key for dashboard access
+ * IMPORTANT: Change this to your own secret key!
+ * This key is used to protect your analytics data from unauthorized access.
+ */
+const DASHBOARD_SECRET_KEY = 'CHANGE_THIS_TO_YOUR_SECRET_KEY';
+
+/**
  * Handle GET requests
- * We don't return any data - analytics should be private
+ * Returns analytics data only if correct secret key is provided
+ * Without key: Returns minimal status response (no data exposed)
+ * With valid key: Returns full analytics data for dashboard
  */
 function doGet(e) {
+  // Check if secret key is provided for dashboard access
+  if (e && e.parameter && e.parameter.key === DASHBOARD_SECRET_KEY) {
+    return getDashboardData();
+  }
+
   // Return minimal response - no data exposed
   return createJsonResponse({
     status: 'Analytics endpoint active',
     message: 'Use POST to log events. No data available via GET.',
     enabled: ENABLE_LOGGING
   });
+}
+
+/**
+ * Get analytics data for dashboard (protected by secret key)
+ * Returns all events with summary statistics
+ */
+function getDashboardData() {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = sheet.getDataRange().getValues();
+
+    if (data.length <= 1) {
+      return createJsonResponse({
+        success: true,
+        events: [],
+        summary: {
+          total_events: 0,
+          qr_scans: 0,
+          venue_views: 0,
+          collect_clicks: 0,
+          unique_sessions: 0
+        }
+      });
+    }
+
+    const headers = data[0];
+    const rows = data.slice(1);
+
+    // Convert rows to objects
+    const events = rows.map(row => {
+      const obj = {};
+      headers.forEach((header, i) => {
+        // Format timestamp for JSON
+        if (header === 'timestamp' && row[i] instanceof Date) {
+          obj[header] = row[i].toISOString();
+        } else {
+          obj[header] = row[i];
+        }
+      });
+      return obj;
+    });
+
+    // Calculate summary statistics
+    const summary = {
+      total_events: events.length,
+      qr_scans: events.filter(e => e.event_type === 'qr_direct_access').length,
+      venue_views: events.filter(e => e.event_type === 'nfc_venue_view').length,
+      collect_clicks: events.filter(e => e.event_type === 'nfc_collect_click').length,
+      gps_success: events.filter(e => e.event_type === 'gps_success').length,
+      gps_errors: events.filter(e => e.event_type === 'gps_error' || e.event_type === 'gps_no_venue').length,
+      unique_sessions: new Set(events.map(e => e.session_id)).size
+    };
+
+    // Get venue breakdown from custom_data
+    const venueStats = {};
+    events.forEach(e => {
+      if (e.event_type === 'nfc_collect_click' && e.custom_data) {
+        try {
+          const customData = typeof e.custom_data === 'string' ? JSON.parse(e.custom_data) : e.custom_data;
+          if (customData.venue_key) {
+            venueStats[customData.venue_key] = (venueStats[customData.venue_key] || 0) + 1;
+          }
+        } catch (err) {
+          // Skip invalid JSON
+        }
+      }
+    });
+
+    // Sort venues by collect count
+    const topVenues = Object.entries(venueStats)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([venue, count]) => ({ venue, collects: count }));
+
+    return createJsonResponse({
+      success: true,
+      events: events,
+      summary: summary,
+      top_venues: topVenues,
+      generated_at: new Date().toISOString()
+    });
+
+  } catch (error) {
+    console.error('Dashboard data error:', error);
+    return createJsonResponse({
+      success: false,
+      error: error.toString()
+    });
+  }
 }
 
 // ============================================
@@ -115,7 +218,8 @@ function logEvent(data) {
       data.user_agent || '',           // E: user_agent
       data.referrer || '',             // F: referrer
       data.screen_size || '',          // G: screen_size
-      data.is_mobile || ''             // H: is_mobile
+      data.is_mobile || '',            // H: is_mobile
+      data.custom_data || ''           // I: custom_data (NFC/QR tracking data)
     ];
 
     // Append row to sheet

@@ -195,4 +195,47 @@ function sendBatchedEvents() {
     });
 }
 
+/**
+ * Generic event logging for NFC/QR tracking
+ * Called by nfc-router.js for journey tracking
+ * @param {string} eventType - Type of event (qr_direct_access, nfc_venue_view, etc.)
+ * @param {object} customData - Custom data payload (venue_key, distance_meters, etc.)
+ */
+async function logEvent(eventType, customData = {}) {
+    if (!ENABLE_FRONTEND_ANALYTICS || !sessionId ||
+        ANALYTICS_API_URL === 'YOUR_ANALYTICS_APPS_SCRIPT_URL_HERE') return;
+
+    try {
+        const sessionData = getSessionData();
+        const payload = {
+            event_type: eventType,
+            custom_data: JSON.stringify(customData),
+            ...sessionData
+        };
+
+        fetch(ANALYTICS_API_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        }).catch(() => {
+            // Silently fail
+        });
+    } catch (error) {
+        console.debug('Analytics event failed:', error);
+    }
+}
+
+// Make logEvent globally available for nfc-router.js
+window.logEvent = logEvent;
+
+// Auto-initialize analytics when script loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnalytics);
+} else {
+    initAnalytics();
+}
+
 
