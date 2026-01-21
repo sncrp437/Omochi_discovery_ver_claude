@@ -1,11 +1,53 @@
 /**
  * NFC Router - Universal Card Landing Page
  * Handles GPS detection, QR scanning, and single-venue display
+ * Also supports direct QR code access via URL parameter (?v=VENUE_KEY)
  */
 
 // State management
 let allVenues = [];
 let currentVenue = null;
+
+/**
+ * Get venue key from QR code URL parameter
+ * Supports ?v=KEY, ?venue=KEY, or ?store=KEY
+ * @returns {string|null} Venue key or null if not present
+ */
+function getQRVenueParam() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('v') || params.get('venue') || params.get('store') || null;
+}
+
+/**
+ * Handle direct QR code flow - skip GPS, go straight to modal
+ * @param {string} venueKey - The venue key from URL parameter
+ */
+async function handleDirectQRFlow(venueKey) {
+    showScreen('loading');
+    updateLoadingStatus('Loading venue...');
+
+    // Find venue by key
+    const venue = allVenues.find(v =>
+        v.venue_key === venueKey || v.id === venueKey
+    );
+
+    if (venue && venue.redirect_url) {
+        currentVenue = venue;
+        if (typeof logEvent === 'function') {
+            logEvent('qr_direct_access', { venue_key: venueKey });
+        }
+        logVenueView(venueKey);
+
+        // Show Omochi modal directly (same as GPS single-venue flow)
+        collectToOmochi();
+    } else {
+        // Venue not found - fall back to store choice modal
+        if (typeof logEvent === 'function') {
+            logEvent('qr_venue_not_found', { venue_key: venueKey });
+        }
+        showStoreChoiceModal('all');
+    }
+}
 
 // Store choice modal state - tracks which grid to show after user selects "Browse Stores"
 let storeChoiceContext = {
@@ -52,7 +94,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load venue data from Google Sheets
     allVenues = await loadVenueData();
 
-    // Set up button listeners
+    // Check for direct QR venue parameter (?v=VENUE_KEY)
+    const qrVenueKey = getQRVenueParam();
+    if (qrVenueKey) {
+        // Direct QR flow - skip landing page, go straight to modal
+        handleDirectQRFlow(qrVenueKey);
+        return; // Skip normal flow
+    }
+
+    // Set up button listeners (normal flow)
     buttons.findVenue.addEventListener('click', handleFindVenue);
     buttons.tryQR.addEventListener('click', showQRScanner);
     buttons.back.addEventListener('click', () => showScreen('landing'));
