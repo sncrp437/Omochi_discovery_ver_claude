@@ -95,6 +95,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (qrVenueKey) {
         // Show QR loading screen IMMEDIATELY - prevent GPS interaction
         showQRLoadingScreen();
+    } else {
+        // Set up button listeners IMMEDIATELY (before slow data load)
+        // This ensures buttons respond on first click, not after data loads
+        buttons.findVenue.addEventListener('click', handleFindVenue);
+        if (buttons.tryQR) buttons.tryQR.addEventListener('click', showQRScanner);
+        if (buttons.back) buttons.back.addEventListener('click', () => showScreen('landing'));
     }
 
     // Track NFC page load
@@ -107,13 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (qrVenueKey) {
         // Direct QR flow - skip landing page, go straight to modal
         handleDirectQRFlow(qrVenueKey);
-        return; // Skip normal flow
     }
-
-    // Set up button listeners (normal flow - only if NOT QR)
-    buttons.findVenue.addEventListener('click', handleFindVenue);
-    buttons.tryQR.addEventListener('click', showQRScanner);
-    buttons.back.addEventListener('click', () => showScreen('landing'));
 });
 
 /**

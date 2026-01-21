@@ -22,19 +22,38 @@
         <div class="omochi-modal-content">
             <button class="omochi-modal-close" id="omochiModalClose">&times;</button>
 
+            <!-- Collection Box Icon -->
+            <div class="modal-hero-icon">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Box body -->
+                    <rect x="6" y="20" width="36" height="22" rx="4" fill="white" fill-opacity="0.95"/>
+                    <!-- Box lid -->
+                    <path d="M4 16C4 13.79 5.79 12 8 12H40C42.21 12 44 13.79 44 16V20H4V16Z" fill="white"/>
+                    <!-- Lid highlight line -->
+                    <rect x="4" y="18" width="40" height="2" fill="white" fill-opacity="0.6"/>
+                    <!-- Lock/clasp -->
+                    <rect x="20" y="16" width="8" height="10" rx="2" fill="#005bea"/>
+                    <!-- Sparkle top-right -->
+                    <circle cx="38" cy="10" r="2" fill="white" fill-opacity="0.8"/>
+                    <circle cx="42" cy="14" r="1.5" fill="white" fill-opacity="0.6"/>
+                    <!-- Inner shine -->
+                    <rect x="10" y="24" width="12" height="2" rx="1" fill="#00c6fb" fill-opacity="0.4"/>
+                </svg>
+            </div>
+
             <h2 id="omochiModalTitle">Save Omochi to Home Screen</h2>
             <p id="omochiModalMessage">Save to home screen to access Omochi anytime!</p>
 
             <div class="platform-instructions">
                 <!-- iOS Instructions -->
                 <div class="instruction-ios" id="instructionIOS">
-                    <p><strong id="omochiIOSStep1">1. Tap the Share icon</strong> <span class="ios-share-icon">⎋</span></p>
+                    <p><strong id="omochiIOSStep1">1. Tap the Share icon</strong> <svg class="ios-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 3l4 4M12 3L8 7"/><path d="M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg></p>
                     <p><strong id="omochiIOSStep2">2. Scroll down and tap "Add to Home Screen"</strong></p>
                 </div>
 
                 <!-- Android Instructions -->
                 <div class="instruction-android" id="instructionAndroid">
-                    <p><strong id="omochiAndroidStep1">1. Tap the Menu icon</strong> <span class="android-menu-icon">⋮</span></p>
+                    <p><strong id="omochiAndroidStep1">1. Tap the Menu icon</strong> <svg class="android-menu-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></p>
                     <p><strong id="omochiAndroidStep2">2. Tap "Add to Home screen"</strong></p>
                 </div>
             </div>

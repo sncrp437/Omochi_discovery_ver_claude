@@ -343,7 +343,7 @@ function updateNFCPage() {
     const iosStep1Strong = document.createElement('strong');
     iosStep1Strong.textContent = t('omochiModal.iosStep1');
     iosStep1.appendChild(iosStep1Strong);
-    iosStep1.innerHTML += ' <span class="ios-share-icon">⎋</span>';
+    iosStep1.innerHTML += ' <svg class="ios-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 3l4 4M12 3L8 7"/><path d="M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg>';
   }
 
   const iosStep2 = document.getElementById('omochiIOSStep2');
@@ -361,7 +361,7 @@ function updateNFCPage() {
     const androidStep1Strong = document.createElement('strong');
     androidStep1Strong.textContent = t('omochiModal.androidStep1');
     androidStep1.appendChild(androidStep1Strong);
-    androidStep1.innerHTML += ' <span class="android-menu-icon">⋮</span>';
+    androidStep1.innerHTML += ' <svg class="android-menu-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
   }
 
   const androidStep2 = document.getElementById('omochiAndroidStep2');

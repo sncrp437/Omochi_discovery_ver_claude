@@ -736,7 +736,9 @@ html {
     transform: none;
     padding: clamp(24px, 5vw, 32px) 24px;
     border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.25),
+        0 8px 20px rgba(0, 0, 0, 0.15);
     text-align: center;
     z-index: 2001;
     animation: modalScaleIn 0.3s ease;
@@ -744,33 +746,60 @@ html {
 
 .omochi-modal-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.06);
     border: none;
-    font-size: 28px;
-    color: #666;
+    border-radius: 50%;
+    font-size: 22px;
+    color: #555;
     cursor: pointer;
-    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
     line-height: 1;
 }
 
 .omochi-modal-close:hover {
+    background: rgba(0, 0, 0, 0.12);
     color: #000;
 }
 
 .omochi-modal-content h2 {
-    margin: 0 0 12px;
-    font-size: 22px;
-    font-weight: 600;
-    color: #1a1a1a;
+    margin: 0 0 10px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -0.5px;
 }
 
 .omochi-modal-content > p {
     margin: 0 0 24px;
-    font-size: 16px;
-    color: #666;
+    font-size: 17px;
+    color: #333;
     line-height: 1.5;
+    font-weight: 500;
+}
+
+/* Modal Hero Icon (Collection Box) */
+.modal-hero-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 91, 234, 0.25);
+}
+
+.modal-hero-icon svg {
+    width: 40px;
+    height: 40px;
 }
 
 /* Modal Illustration */
@@ -839,10 +868,10 @@ html {
 }
 
 .platform-instructions {
-    background: rgba(0, 0, 0, 0.04);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 0 0 24px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 0 0 20px;
     text-align: left;
 }
 
@@ -857,10 +886,15 @@ html {
 }
 
 .platform-instructions p {
-    margin: 0 0 12px;
-    font-size: 15px;
-    color: #333;
+    margin: 0 0 14px;
+    font-size: 17px;
+    color: #1a1a1a;
     line-height: 1.6;
+}
+
+.platform-instructions p strong {
+    font-weight: 600;
+    color: #000;
 }
 
 .platform-instructions p:last-child {
@@ -870,30 +904,43 @@ html {
 .ios-share-icon,
 .android-menu-icon {
     display: inline-block;
-    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
     margin-left: 4px;
+}
+
+.ios-share-icon {
+    color: #007AFF;
+}
+
+.android-menu-icon {
+    color: #5f6368;
 }
 
 .omochi-continue-btn {
     width: 100%;
-    padding: 16px 24px;
+    padding: 18px 24px;
     background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
     color: #fff;
     border: none;
     border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 17px;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px rgba(0, 91, 234, 0.3);
 }
 
 .omochi-continue-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 91, 234, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 91, 234, 0.4);
 }
 
 .omochi-continue-btn:active {
     transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 91, 234, 0.3);
 }
 
 /* Mobile Responsive */
@@ -906,11 +953,26 @@ html {
     }
 
     .omochi-modal-content h2 {
-        font-size: 20px;
+        font-size: 24px;
     }
 
     .omochi-modal-content > p {
-        font-size: 15px;
+        font-size: 16px;
+    }
+
+    .modal-hero-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+    }
+
+    .modal-hero-icon svg {
+        width: 34px;
+        height: 34px;
+    }
+
+    .platform-instructions p {
+        font-size: 16px;
     }
 
     .modal-illustration {
@@ -943,51 +1005,49 @@ html {
     .benefit-text {
         font-size: 13px;
     }
-
-    .platform-instructions p {
-        font-size: 14px;
-    }
 }
 
 /* Organization Note (blue theme - addresses clutter fear) */
 .organization-note {
-    background: rgba(102, 126, 234, 0.1);
-    border-left: 3px solid #667eea;
-    border-radius: 8px;
-    padding: 12px 16px;
+    background: rgba(102, 126, 234, 0.12);
+    border-left: 4px solid #667eea;
+    border-radius: 12px;
+    padding: 14px 18px;
     margin: 0 0 12px;
     text-align: left;
 }
 
 .organization-note p {
     margin: 0;
-    font-size: 14px;
-    color: #333;
+    font-size: 15px;
+    color: #1a1a1a;
     line-height: 1.6;
+    font-weight: 500;
 }
 
 /* Registration Note (purple theme - reduces friction) */
 .registration-note {
-    background: rgba(118, 75, 162, 0.1);
-    border-left: 3px solid #764ba2;
-    border-radius: 8px;
-    padding: 12px 16px;
+    background: rgba(118, 75, 162, 0.12);
+    border-left: 4px solid #764ba2;
+    border-radius: 12px;
+    padding: 14px 18px;
     margin: 0 0 24px;
     text-align: left;
 }
 
 .registration-note p {
     margin: 0;
-    font-size: 14px;
-    color: #333;
+    font-size: 15px;
+    color: #1a1a1a;
     line-height: 1.6;
+    font-weight: 500;
 }
 
 /* Mobile Responsive for Notes */
 @media (max-width: 480px) {
     .organization-note p,
     .registration-note p {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
 
