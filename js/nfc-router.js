@@ -75,6 +75,7 @@ function detectPlatform() {
 const screens = {
     landing: document.getElementById('landingScreen'),
     loading: document.getElementById('loadingScreen'),
+    qrLoading: document.getElementById('qrLoadingScreen'),
     venue: document.getElementById('venueScreen'),
     qrScanner: document.getElementById('qrScannerScreen'),
     noVenue: document.getElementById('noVenueScreen')
@@ -88,21 +89,28 @@ const buttons = {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', async () => {
+    // IMMEDIATE: Check for QR parameter BEFORE any async operations
+    const qrVenueKey = getQRVenueParam();
+
+    if (qrVenueKey) {
+        // Show QR loading screen IMMEDIATELY - prevent GPS interaction
+        showQRLoadingScreen();
+    }
+
     // Track NFC page load
     logNFCPageLoad();
 
-    // Load venue data from Google Sheets
+    // Load venue data from Google Sheets (THIS IS THE SLOW PART)
     allVenues = await loadVenueData();
 
-    // Check for direct QR venue parameter (?v=VENUE_KEY)
-    const qrVenueKey = getQRVenueParam();
+    // Handle QR flow if parameter was present
     if (qrVenueKey) {
         // Direct QR flow - skip landing page, go straight to modal
         handleDirectQRFlow(qrVenueKey);
         return; // Skip normal flow
     }
 
-    // Set up button listeners (normal flow)
+    // Set up button listeners (normal flow - only if NOT QR)
     buttons.findVenue.addEventListener('click', handleFindVenue);
     buttons.tryQR.addEventListener('click', showQRScanner);
     buttons.back.addEventListener('click', () => showScreen('landing'));
@@ -600,6 +608,21 @@ function showScreen(screenName) {
     // Hide floating QR button when leaving venue screen
     if (screenName !== 'venue') {
         hideFloatingQRButton();
+    }
+}
+
+/**
+ * Show QR loading screen immediately when QR parameter detected
+ * Hides landing screen to prevent GPS flow interaction during data load
+ */
+function showQRLoadingScreen() {
+    // Hide landing screen immediately
+    if (screens.landing) {
+        screens.landing.classList.remove('active');
+    }
+    // Show QR loading screen
+    if (screens.qrLoading) {
+        screens.qrLoading.classList.add('active');
     }
 }
 

@@ -237,6 +237,20 @@ html {
     min-height: 20px;
 }
 
+/* QR Loading Screen - Same style as loading but for QR flow */
+#qrLoadingScreen.active {
+    max-width: 480px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+}
+
+#qrLoadingScreen p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 16px;
+}
+
 /* Venue Display - Full width, no constraints */
 #venueScreen.active {
     padding: 0;
