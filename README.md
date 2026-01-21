@@ -228,6 +228,87 @@ en: { yourKey: 'English text' },
 ja: { yourKey: '日本語テキスト' }
 ```
 
+## Venue-Specific URLs & QR Codes
+
+The NFC router supports direct venue access via URL parameters. When a user scans a QR code or NFC card containing a venue-specific URL, they skip the landing page and GPS detection, going directly to the Omochi collection modal.
+
+### URL Format
+
+```
+https://yoursite.com/index.html?v=VENUE_KEY
+```
+
+**Supported parameters** (all work the same):
+- `?v=VENUE_KEY` (recommended - shortest)
+- `?venue=VENUE_KEY`
+- `?store=VENUE_KEY`
+
+### How to Create Venue-Specific URLs
+
+1. **Find your venue's key** in Google Sheets (`venue_key` column)
+2. **Append to your base URL** as `?v=venue_key`
+
+**Example:**
+```
+Base URL:    https://example.com/index.html
+Venue Key:   ichiran_shibuya
+Result:      https://example.com/index.html?v=ichiran_shibuya
+```
+
+### Google Sheets Requirements
+
+For venue-specific URLs to work, your Google Sheet must have:
+
+| Column | Required | Description |
+|--------|----------|-------------|
+| `venue_key` | Yes | Unique identifier (used in URL) |
+| `redirect_url` | Yes | Final destination after modal |
+| `venue_name` | Yes | Display name in modal |
+| `lat` / `lng` | Optional | Only needed for GPS detection |
+
+### Creating QR Codes
+
+1. Generate a QR code containing the full venue-specific URL
+2. Print and place at the venue location
+3. When scanned, users go directly to that venue's Omochi modal
+
+**Tools for QR generation:**
+- [QR Code Generator](https://www.qr-code-generator.com/)
+- [QRCode Monkey](https://www.qrcode-monkey.com/)
+
+### NFC Card Programming
+
+Program NFC cards with the venue-specific URL:
+
+```
+https://yoursite.com/index.html?v=ichiran_shibuya
+```
+
+**Optional:** Add card tracking by combining parameters:
+```
+https://yoursite.com/index.html?v=ichiran_shibuya&card=store_001
+```
+
+### User Flow
+
+```
+User scans QR/NFC with ?v=venue_key
+        ↓
+Page loads, detects ?v= parameter
+        ↓
+Skips landing page & GPS detection
+        ↓
+Shows Omochi modal directly
+        ↓
+User taps "Continue" → Redirects to redirect_url
+```
+
+### Fallback Behavior
+
+If the `venue_key` is not found or has no `redirect_url`:
+- User is shown the store choice modal
+- They can browse all venues or use the QR scanner
+
 ## Customization
 
 ### Styling
