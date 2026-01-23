@@ -7,7 +7,7 @@
  */
 
 // Analytics configuration
-const ANALYTICS_API_URL = 'YOUR_ANALYTICS_APPS_SCRIPT_URL_HERE'; // Replace with your analytics API URL
+const ANALYTICS_API_URL = 'https://script.google.com/macros/s/AKfycbx0a3_WFsvGNpwKrTQCRbkVXuRrzYBezBCIl0U4pPtS78KVTJ_xQwpo5NiWSxMdJhhJ/exec'; // Replace with your analytics API URL
 const ENABLE_FRONTEND_ANALYTICS = true; // Set to false to disable all tracking
 
 // Session management
