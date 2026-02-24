@@ -198,16 +198,17 @@ html {
 .benefit-icon {
     width: 22px;
     height: 22px;
-    background: rgba(76, 175, 80, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    color: #4caf50;
     flex-shrink: 0;
     margin-top: 1px;
 }
+
+.benefit-item:nth-child(1) .benefit-icon { background: rgba(33, 150, 243, 0.15); }
+.benefit-item:nth-child(2) .benefit-icon { background: rgba(255, 152, 0, 0.15); }
+.benefit-item:nth-child(3) .benefit-icon { background: rgba(76, 175, 80, 0.15); }
 
 .benefits .benefit-text {
     font-size: 14px;
@@ -852,12 +853,10 @@ html {
 .benefit-icon {
     width: 36px;
     height: 36px;
-    background: rgba(0, 198, 251, 0.1);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
     flex-shrink: 0;
 }
 
@@ -999,7 +998,6 @@ html {
     .benefit-icon {
         width: 32px;
         height: 32px;
-        font-size: 16px;
     }
 
     .benefit-text {
