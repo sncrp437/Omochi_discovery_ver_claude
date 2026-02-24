@@ -319,7 +319,7 @@ function updateNFCPage() {
   const registrationNoteText = t('omochiModal.registrationNote');
   if (omochiRegistrationNote) omochiRegistrationNote.textContent = registrationNoteText;
   if (registrationNoteContainer) {
-    registrationNoteContainer.style.display = registrationNoteText ? 'block' : 'none';
+    registrationNoteContainer.style.display = registrationNoteText ? 'flex' : 'none';
   }
 
   // Re-translate modal title and button if modal is currently visible
@@ -336,41 +336,19 @@ function updateNFCPage() {
     }
   }
 
-  // iOS Instructions (preserve icon)
+  // iOS Instructions (icons now in separate containers)
   const iosStep1 = document.getElementById('omochiIOSStep1');
-  if (iosStep1) {
-    iosStep1.innerHTML = '';
-    const iosStep1Strong = document.createElement('strong');
-    iosStep1Strong.textContent = t('omochiModal.iosStep1');
-    iosStep1.appendChild(iosStep1Strong);
-    iosStep1.innerHTML += ' <svg class="ios-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 3l4 4M12 3L8 7"/><path d="M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg>';
-  }
+  if (iosStep1) iosStep1.textContent = t('omochiModal.iosStep1');
 
   const iosStep2 = document.getElementById('omochiIOSStep2');
-  if (iosStep2) {
-    iosStep2.innerHTML = '';
-    const iosStep2Strong = document.createElement('strong');
-    iosStep2Strong.textContent = t('omochiModal.iosStep2');
-    iosStep2.appendChild(iosStep2Strong);
-  }
+  if (iosStep2) iosStep2.textContent = t('omochiModal.iosStep2');
 
-  // Android Instructions (preserve icon)
+  // Android Instructions (icons now in separate containers)
   const androidStep1 = document.getElementById('omochiAndroidStep1');
-  if (androidStep1) {
-    androidStep1.innerHTML = '';
-    const androidStep1Strong = document.createElement('strong');
-    androidStep1Strong.textContent = t('omochiModal.androidStep1');
-    androidStep1.appendChild(androidStep1Strong);
-    androidStep1.innerHTML += ' <svg class="android-menu-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
-  }
+  if (androidStep1) androidStep1.textContent = t('omochiModal.androidStep1');
 
   const androidStep2 = document.getElementById('omochiAndroidStep2');
-  if (androidStep2) {
-    androidStep2.innerHTML = '';
-    const androidStep2Strong = document.createElement('strong');
-    androidStep2Strong.textContent = t('omochiModal.androidStep2');
-    androidStep2.appendChild(androidStep2Strong);
-  }
+  if (androidStep2) androidStep2.textContent = t('omochiModal.androidStep2');
 }
 
 /**

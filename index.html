@@ -20,55 +20,54 @@
     <div class="omochi-modal" id="omochiModal">
         <div class="omochi-modal-overlay" id="omochiModalOverlay"></div>
         <div class="omochi-modal-content">
-            <button class="omochi-modal-close" id="omochiModalClose">&times;</button>
+            <button class="omochi-modal-close" id="omochiModalClose">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
 
-            <!-- Collection Box Icon -->
-            <div class="modal-hero-icon">
-                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Box body -->
-                    <rect x="6" y="20" width="36" height="22" rx="4" fill="white" fill-opacity="0.95"/>
-                    <!-- Box lid -->
-                    <path d="M4 16C4 13.79 5.79 12 8 12H40C42.21 12 44 13.79 44 16V20H4V16Z" fill="white"/>
-                    <!-- Lid highlight line -->
-                    <rect x="4" y="18" width="40" height="2" fill="white" fill-opacity="0.6"/>
-                    <!-- Lock/clasp -->
-                    <rect x="20" y="16" width="8" height="10" rx="2" fill="#005bea"/>
-                    <!-- Sparkle top-right -->
-                    <circle cx="38" cy="10" r="2" fill="white" fill-opacity="0.8"/>
-                    <circle cx="42" cy="14" r="1.5" fill="white" fill-opacity="0.6"/>
-                    <!-- Inner shine -->
-                    <rect x="10" y="24" width="12" height="2" rx="1" fill="#00c6fb" fill-opacity="0.4"/>
-                </svg>
-            </div>
+            <h2 id="omochiModalTitle">Collect this venue</h2>
+            <p id="omochiModalMessage">Once Omochi opens, add it to your home screen. You'll be able to access all your collected venues anytime.</p>
 
-            <h2 id="omochiModalTitle">Save Omochi to Home Screen</h2>
-            <p id="omochiModalMessage">Save to home screen to access Omochi anytime!</p>
-
-            <div class="platform-instructions">
+            <div class="omochi-info-sections">
                 <!-- iOS Instructions -->
-                <div class="instruction-ios" id="instructionIOS">
-                    <p><strong id="omochiIOSStep1">1. Tap the Share icon</strong> <svg class="ios-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 3l4 4M12 3L8 7"/><path d="M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg></p>
-                    <p><strong id="omochiIOSStep2">2. Scroll down and tap "Add to Home Screen"</strong></p>
+                <div class="omochi-info-section instruction-ios" id="instructionIOS">
+                    <div class="omochi-info-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M12 3l4 4M12 3L8 7"/><path d="M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg>
+                    </div>
+                    <div class="omochi-info-text">
+                        <p><strong id="omochiIOSStep1">1. Tap the Share icon</strong></p>
+                        <p><strong id="omochiIOSStep2">2. Scroll down and tap "Add to Home Screen"</strong></p>
+                    </div>
                 </div>
 
                 <!-- Android Instructions -->
-                <div class="instruction-android" id="instructionAndroid">
-                    <p><strong id="omochiAndroidStep1">1. Tap the Menu icon</strong> <svg class="android-menu-icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></p>
-                    <p><strong id="omochiAndroidStep2">2. Tap "Add to Home screen"</strong></p>
+                <div class="omochi-info-section instruction-android" id="instructionAndroid">
+                    <div class="omochi-info-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="#a0a0a0" stroke="none"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+                    </div>
+                    <div class="omochi-info-text">
+                        <p><strong id="omochiAndroidStep1">1. Tap the Menu icon</strong></p>
+                        <p><strong id="omochiAndroidStep2">2. Tap "Add to Home screen"</strong></p>
+                    </div>
+                </div>
+
+                <!-- Organization Note -->
+                <div class="omochi-info-section" id="organizationNote">
+                    <div class="omochi-info-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#00b4d8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3" ry="3"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </div>
+                    <p class="omochi-info-text" id="omochiOrganizationNote">Save once. Then access all your collected venues with one tap.</p>
+                </div>
+
+                <!-- Registration Note -->
+                <div class="omochi-info-section" id="registrationNote">
+                    <div class="omochi-info-icon">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8 6 6 0 006 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 018.91 14"/></svg>
+                    </div>
+                    <p class="omochi-info-text" id="omochiRegistrationNote"></p>
                 </div>
             </div>
 
-            <!-- Organization Note (addresses clutter fear) -->
-            <div class="organization-note" id="organizationNote">
-                <p id="omochiOrganizationNote">📱 One link, all your venues — Save this once and access all collected places from inside the app. No clutter, just tap to explore!</p>
-            </div>
-
-            <!-- Registration Note (reduces friction) -->
-            <div class="registration-note" id="registrationNote">
-                <p id="omochiRegistrationNote">💡 Register when you're ready — open from your home screen, tap ← Back, and sign up. All venues automatically saved to your account!</p>
-            </div>
-
-            <button class="omochi-continue-btn" id="omochiContinueBtn">Continue to Omochi</button>
+            <button class="omochi-continue-btn" id="omochiContinueBtn">Open Omochi</button>
         </div>
     </div>
 

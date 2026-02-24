@@ -704,7 +704,7 @@ function showOmochiModal(omochiURL) {
     const registrationNoteContainer = document.getElementById('registrationNote');
     const registrationNoteText = t('omochiModal.registrationNote');
     if (registrationNoteContainer) {
-        registrationNoteContainer.style.display = registrationNoteText ? 'block' : 'none';
+        registrationNoteContainer.style.display = registrationNoteText ? 'flex' : 'none';
     }
 
     // Show modal

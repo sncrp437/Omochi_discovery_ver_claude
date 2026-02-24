@@ -689,6 +689,7 @@ html {
 
 /* ========================================
    Omochi Save to Home Screen Modal
+   (Dark theme matching folder-info-modal)
    ======================================== */
 
 @keyframes modalScaleIn {
@@ -707,8 +708,8 @@ html {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom: 0;
     align-items: center;
     justify-content: center;
     z-index: 2000;
@@ -722,158 +723,108 @@ html {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .omochi-modal-content {
     position: relative;
-    background: #fff;
-    width: 90%;
-    max-width: min(400px, 90vw);
-    margin: 0;
-    transform: none;
-    padding: clamp(24px, 5vw, 32px) 24px;
-    border-radius: 24px;
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.25),
-        0 8px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
+    background: #272525;
+    border-radius: 16px;
+    padding: 24px 20px 20px;
+    max-width: 340px;
+    width: calc(100% - 48px);
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     z-index: 2001;
     animation: modalScaleIn 0.3s ease;
 }
 
 .omochi-modal-close {
     position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 32px;
-    height: 32px;
-    background: rgba(0, 0, 0, 0.06);
+    top: 12px;
+    right: 12px;
+    background: none;
     border: none;
-    border-radius: 50%;
-    font-size: 22px;
-    color: #555;
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
+    padding: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
-    line-height: 1;
+    transition: color 0.2s ease;
 }
 
 .omochi-modal-close:hover {
-    background: rgba(0, 0, 0, 0.12);
-    color: #000;
+    color: #fff;
 }
 
 .omochi-modal-content h2 {
-    margin: 0 0 10px;
-    font-size: 26px;
-    font-weight: 700;
-    color: #000;
-    letter-spacing: -0.5px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 8px 0;
 }
 
 .omochi-modal-content > p {
-    margin: 0 0 24px;
-    font-size: 17px;
-    color: #333;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
     line-height: 1.5;
-    font-weight: 500;
+    margin: 0 0 16px 0;
 }
 
-/* Modal Hero Icon (Collection Box) */
-.modal-hero-icon {
-    width: 72px;
-    height: 72px;
-    margin: 0 auto 16px;
-    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
-    border-radius: 18px;
+/* Info Sections (icon + text rows) */
+.omochi-info-sections {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 24px rgba(0, 91, 234, 0.25);
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
 }
 
-.modal-hero-icon svg {
-    width: 40px;
-    height: 40px;
-}
-
-/* Modal Illustration */
-.modal-illustration {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
-    border-radius: 24px;
+.omochi-info-section {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.illustration-icon {
-    font-size: 42px;
-}
-
-.illustration-badge {
-    position: absolute;
-    bottom: -8px;
-    right: -8px;
-    width: 32px;
-    height: 32px;
-    background: #4caf50;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Modal Benefits List */
-.modal-benefits {
-    text-align: left;
-    margin-bottom: 24px;
-}
-
-.benefit-item {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
-    padding: 10px 0;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 
-.benefit-icon {
+.omochi-info-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 36px;
     height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
 }
 
-.benefit-text {
-    font-size: 14px;
-    color: #333;
-    line-height: 1.4;
+.omochi-info-text {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin: 0;
+    padding-top: 6px;
 }
 
-.platform-instructions {
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin: 0 0 20px;
-    text-align: left;
+.omochi-info-text p {
+    margin: 0 0 6px;
 }
 
+.omochi-info-text p:last-child {
+    margin-bottom: 0;
+}
+
+.omochi-info-text strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Platform instruction visibility (toggled by JS .active class) */
 .instruction-ios,
 .instruction-android {
     display: none;
@@ -881,50 +832,18 @@ html {
 
 .instruction-ios.active,
 .instruction-android.active {
-    display: block;
+    display: flex;
 }
 
-.platform-instructions p {
-    margin: 0 0 14px;
-    font-size: 17px;
-    color: #1a1a1a;
-    line-height: 1.6;
-}
-
-.platform-instructions p strong {
-    font-weight: 600;
-    color: #000;
-}
-
-.platform-instructions p:last-child {
-    margin-bottom: 0;
-}
-
-.ios-share-icon,
-.android-menu-icon {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    margin-left: 4px;
-}
-
-.ios-share-icon {
-    color: #007AFF;
-}
-
-.android-menu-icon {
-    color: #5f6368;
-}
-
+/* Continue Button (blue gradient CTA) */
 .omochi-continue-btn {
     width: 100%;
-    padding: 18px 24px;
+    padding: 14px 24px;
     background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
     color: #fff;
     border: none;
-    border-radius: 14px;
-    font-size: 17px;
+    border-radius: 12px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -940,113 +859,6 @@ html {
 .omochi-continue-btn:active {
     transform: translateY(0);
     box-shadow: 0 4px 15px rgba(0, 91, 234, 0.3);
-}
-
-/* Mobile Responsive */
-@media (max-width: 480px) {
-    .omochi-modal-content {
-        max-width: calc(100% - 32px);
-        margin-left: 16px;
-        margin-right: 16px;
-        padding: 24px 20px;
-    }
-
-    .omochi-modal-content h2 {
-        font-size: 24px;
-    }
-
-    .omochi-modal-content > p {
-        font-size: 16px;
-    }
-
-    .modal-hero-icon {
-        width: 64px;
-        height: 64px;
-        border-radius: 16px;
-    }
-
-    .modal-hero-icon svg {
-        width: 34px;
-        height: 34px;
-    }
-
-    .platform-instructions p {
-        font-size: 16px;
-    }
-
-    .modal-illustration {
-        width: 80px;
-        height: 80px;
-        border-radius: 20px;
-        margin-bottom: 16px;
-    }
-
-    .illustration-icon {
-        font-size: 36px;
-    }
-
-    .illustration-badge {
-        width: 28px;
-        height: 28px;
-        font-size: 16px;
-    }
-
-    .benefit-item {
-        padding: 8px 0;
-    }
-
-    .benefit-icon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .benefit-text {
-        font-size: 13px;
-    }
-}
-
-/* Organization Note (blue theme - addresses clutter fear) */
-.organization-note {
-    background: rgba(102, 126, 234, 0.12);
-    border-left: 4px solid #667eea;
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin: 0 0 12px;
-    text-align: left;
-}
-
-.organization-note p {
-    margin: 0;
-    font-size: 15px;
-    color: #1a1a1a;
-    line-height: 1.6;
-    font-weight: 500;
-}
-
-/* Registration Note (purple theme - reduces friction) */
-.registration-note {
-    background: rgba(118, 75, 162, 0.12);
-    border-left: 4px solid #764ba2;
-    border-radius: 12px;
-    padding: 14px 18px;
-    margin: 0 0 24px;
-    text-align: left;
-}
-
-.registration-note p {
-    margin: 0;
-    font-size: 15px;
-    color: #1a1a1a;
-    line-height: 1.6;
-    font-weight: 500;
-}
-
-/* Mobile Responsive for Notes */
-@media (max-width: 480px) {
-    .organization-note p,
-    .registration-note p {
-        font-size: 14px;
-    }
 }
 
 /* ========================================
